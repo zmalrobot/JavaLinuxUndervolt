@@ -26,6 +26,7 @@ public class Interface {
     private int uncoreSliderValue;
     private int analogioSliderValue;
 
+    private UndervoltValue value = new UndervoltValue();
 
 
     public Interface(){
@@ -97,14 +98,22 @@ public class Interface {
             public void actionPerformed(ActionEvent actionEvent) {
                 //First i disable the ui
                 applybutton.setText("Applying change, please wait...");
-                applybutton.setBackground(Color.decode("#A33C48"));
                 setEnableUi(false);
 
+                //Set value
+                value.setValue(coreSliderValue, gpuSliderValue, cacheSliderValue, uncoreSliderValue, analogioSliderValue);
 
-                //setUiValue();
+                //Refresh ui value
+                setUiValue();
+
+                //Re enable all ui
+                applybutton.setText("Apply");
+                setEnableUi(true);
+
             }
         });
 
+        //Set actual value when application start
         setUiValue();
     }
 
@@ -119,16 +128,6 @@ public class Interface {
     }
     //END INSTANZE
 
-    private void setLabel(int value, JLabel label){
-
-        String labeltext = Integer.toString(value);
-
-        if(value>0){
-            labeltext = '+'+labeltext;
-        }
-
-        label.setText(labeltext);
-    }
 
     private void setEnableUi(boolean enable){
         coreSlider.setEnabled(enable);
@@ -141,30 +140,55 @@ public class Interface {
 
     private void setUiValue(){
         //Get the data from undervolt.py
-        UndervoltValue value = new UndervoltValue();
-        HashMap<String, Integer> valueHashmap = value.getValue();
+        HashMap<String, Double> valueHashmap = value.getValue();
 
+        if(valueHashmap.containsKey("errors")){
+            //If there is something wrong with the readings
+            generateError(valueHashmap.get("errors").intValue());
+        }else{
+            //Set actual core value
+            coreSlider.setValue(valueHashmap.get("core").intValue());
+            setLabel(valueHashmap.get("core").intValue(), valueCore);
 
-        //Set actual core value
-        coreSlider.setValue(valueHashmap.get("cpu"));
-        valueCore.setText(valueHashmap.get("cpu").toString());
+            //Set actual gpu value
+            gpuSlider.setValue(valueHashmap.get("gpu").intValue());
+            setLabel(valueHashmap.get("gpu").intValue(), valueGpu);
 
-        //Set actual gpu value
-        gpuSlider.setValue(valueHashmap.get("gpu"));
-        valueGpu.setText(valueHashmap.get("gpu").toString());
+            //Set actual cache value
+            cacheSlider.setValue(valueHashmap.get("cache").intValue());
+            setLabel(valueHashmap.get("cache").intValue(), valueCache);
 
-        //Set actual cache value
-        cacheSlider.setValue(valueHashmap.get("cache"));
-        valueCache.setText(valueHashmap.get("cache").toString());
+            //Set actual uncore value
+            uncoreSlider.setValue(valueHashmap.get("uncore").intValue());
+            setLabel(valueHashmap.get("uncore").intValue(), valueUncore);
 
-        //Set actual uncore value
-        uncoreSlider.setValue(valueHashmap.get("uncore"));
-        valueUncore.setText(valueHashmap.get("uncore").toString());
+            //Set actual analogio value
+            analogioSlider.setValue(valueHashmap.get("analogio").intValue());
+            setLabel(valueHashmap.get("analogio").intValue(), valueAnalogio);
+        }
 
-        //Set actual analogio value
-        analogioSlider.setValue(valueHashmap.get("analogio"));
-        valueAnalogio.setText(valueHashmap.get("analogio").toString());
+    }
 
+    private void setLabel(int value, JLabel label){
+
+        String labeltext = Integer.toString(value) + " mV";
+
+        if(value>0){
+            labeltext = '+'+labeltext;
+        }
+
+        label.setText(labeltext);
+    }
+
+    public void generateError(int errorCode){
+
+        //Error reference:
+
+        // Code: 1.0 --> Class: Undervolt.java --> Method: runScript
+        // Solution: Application start with no sudo permission or something is wrong with undervolt.py file
+
+        setEnableUi(false);
+        applybutton.setText("Error code: " + errorCode);
     }
 
 }

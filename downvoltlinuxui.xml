@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="downvoltlinuxui" default="all">
+  
+  
+  <property file="downvoltlinuxui.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.klib"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.11" value="${jdk.home.11}/bin"/>
+  <path id="jdk.classpath.11">
+    <fileset dir="${jdk.home.11}">
+      <include name="../java-1.11.0-openjdk-amd64!/java.base"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.compiler"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.datatransfer"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.desktop"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.instrument"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.logging"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.management"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.management.rmi"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.naming"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.net.http"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.prefs"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.rmi"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.scripting"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.se"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.security.jgss"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.security.sasl"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.smartcardio"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.sql"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.sql.rowset"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.transaction.xa"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.xml"/>
+      <include name="../java-1.11.0-openjdk-amd64!/java.xml.crypto"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.accessibility"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.aot"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.attach"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.charsets"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.compiler"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.crypto.cryptoki"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.crypto.ec"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.dynalink"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.editpad"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.hotspot.agent"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.httpserver"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.ed"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.jvmstat"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.le"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.opt"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.vm.ci"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.vm.compiler"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.internal.vm.compiler.management"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jartool"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.javadoc"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jcmd"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jconsole"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jdeps"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jdi"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jdwp.agent"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jfr"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jlink"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jshell"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jsobject"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.jstatd"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.localedata"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.management"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.management.agent"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.management.jfr"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.naming.dns"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.naming.rmi"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.net"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.pack"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.rmic"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.scripting.nashorn"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.scripting.nashorn.shell"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.sctp"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.security.auth"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.security.jgss"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.unsupported"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.unsupported.desktop"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.xml.dom"/>
+      <include name="../java-1.11.0-openjdk-amd64!/jdk.zipfs"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.11}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.11}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.11"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.miglayout.classpath">
+    <pathelement location="${basedir}/lib/miglayout-core.jar"/>
+    <pathelement location="${basedir}/lib/miglayout-swing.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module DownvoltLinuxUi -->
+  
+  <dirname property="module.downvoltlinuxui.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.downvoltlinuxui" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.downvoltlinuxui" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.downvoltlinuxui" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.downvoltlinuxui" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="downvoltlinuxui.output.dir" value="${module.downvoltlinuxui.basedir}/out/production/DownvoltLinuxUi"/>
+  <property name="downvoltlinuxui.testoutput.dir" value="${module.downvoltlinuxui.basedir}/out/test/DownvoltLinuxUi"/>
+  
+  <path id="downvoltlinuxui.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="downvoltlinuxui.module.production.classpath">
+    <path refid="${module.jdk.classpath.downvoltlinuxui}"/>
+    <path refid="library.miglayout.classpath"/>
+  </path>
+  
+  <path id="downvoltlinuxui.runtime.production.module.classpath">
+    <pathelement location="${downvoltlinuxui.output.dir}"/>
+    <path refid="library.miglayout.classpath"/>
+  </path>
+  
+  <path id="downvoltlinuxui.module.classpath">
+    <path refid="${module.jdk.classpath.downvoltlinuxui}"/>
+    <pathelement location="${downvoltlinuxui.output.dir}"/>
+    <path refid="library.miglayout.classpath"/>
+  </path>
+  
+  <path id="downvoltlinuxui.runtime.module.classpath">
+    <pathelement location="${downvoltlinuxui.testoutput.dir}"/>
+    <pathelement location="${downvoltlinuxui.output.dir}"/>
+    <path refid="library.miglayout.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.downvoltlinuxui">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.downvoltlinuxui">
+    <patternset refid="excluded.from.module.downvoltlinuxui"/>
+  </patternset>
+  
+  <path id="downvoltlinuxui.module.sourcepath">
+    <dirset dir="${module.downvoltlinuxui.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.downvoltlinuxui" depends="compile.module.downvoltlinuxui.production,compile.module.downvoltlinuxui.tests" description="Compile module DownvoltLinuxUi"/>
+  
+  <target name="compile.module.downvoltlinuxui.production" depends="register.custom.compilers" description="Compile module DownvoltLinuxUi; production classes">
+    <mkdir dir="${downvoltlinuxui.output.dir}"/>
+    <javac2 destdir="${downvoltlinuxui.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.downvoltlinuxui}/javac">
+      <compilerarg line="${compiler.args.downvoltlinuxui}"/>
+      <bootclasspath refid="downvoltlinuxui.module.bootclasspath"/>
+      <classpath refid="downvoltlinuxui.module.production.classpath"/>
+      <src refid="downvoltlinuxui.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.downvoltlinuxui"/>
+    </javac2>
+    
+    <copy todir="${downvoltlinuxui.output.dir}">
+      <fileset dir="${module.downvoltlinuxui.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.downvoltlinuxui.tests" depends="register.custom.compilers,compile.module.downvoltlinuxui.production" description="compile module DownvoltLinuxUi; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.downvoltlinuxui" description="cleanup module">
+    <delete dir="${downvoltlinuxui.output.dir}"/>
+    <delete dir="${downvoltlinuxui.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.downvoltlinuxui" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.downvoltlinuxui" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

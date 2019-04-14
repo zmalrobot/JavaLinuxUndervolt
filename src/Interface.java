@@ -29,6 +29,14 @@ public class Interface {
     private UndervoltValue value = new UndervoltValue();
 
 
+    //TODO
+    // 1 - Faq errori
+    // 2 - Stress test dopo applicazioni valori
+    // 3 - Salvare le configurazioni su file
+    // 4 - Permettere l'avvio all'avvio del sistema e ripristinare le configurazione
+    // 5 - Controllare che il punto 4 non sia avvenuto per un crash del sistema ( Potrebbe causare loop XD )
+    // 6 - Avvertire Gilli
+
     public Interface(){
 
         //Cpu voltage

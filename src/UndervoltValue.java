@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.HashMap;
 
+//TODO
+// 1 - Controllo se viene applicato correttamente o se da errore
+
 public class UndervoltValue {
 
     private HashMap<String, Double> returnValue  = new HashMap<String, Double>();

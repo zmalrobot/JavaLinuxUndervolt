@@ -2,15 +2,18 @@ import java.io.*;
 import java.util.HashMap;
 
 //TODO
-// 1 - Controllo se viene applicato correttamente o se da errore
+// 1 - Controllo se viene applicato correttamente o se da errore --> DONE
 
 public class UndervoltValue {
 
-    private HashMap<String, Double> returnValue  = new HashMap<String, Double>();
+    private Config configs = new Config();
+    private HashMap<String, Double> returnValue;
 
     public UndervoltValue(){ }
 
     public HashMap<String, Double> getValue(){
+
+        returnValue  = new HashMap<String, Double>();
 
         runScript("--read", true);
 
@@ -23,15 +26,16 @@ public class UndervoltValue {
 
         System.out.println("Applying: " + undervolt);
 
-        runScript(undervolt, false);
+        returnValue  = new HashMap<String, Double>();
 
-        return false;
+        return runScript(undervolt, false);
+
     }
 
-    private void runScript(String param, boolean read){
+    private boolean runScript(String param, boolean read){
 
         //Path and script name
-        String path = "sudo externaltools/";
+        String path = "sudo "+configs.getUndervolt_path();
         String script = "undervolt.py ";
 
         try {
@@ -43,6 +47,15 @@ public class UndervoltValue {
             //Read process return
             String ret = in.readLine();
 
+            //For setting error
+            if(ret == null && !read){
+                return true;
+            }
+            if(ret != null && !read){
+                return false;
+            }
+
+            //Read file
             if(ret == null && read){
                 //No permission or no script
                 System.out.println("Errore nell'eseczuione dello script");
@@ -68,6 +81,7 @@ public class UndervoltValue {
             //No script
             e.printStackTrace();
         }
+        return false;
     }
 
     private void addToHasmap(String scrptString){

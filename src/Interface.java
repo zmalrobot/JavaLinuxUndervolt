@@ -1,12 +1,20 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Console;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Interface {
+    private JFrame frame;
     private JPanel MainPanel;
     private JSlider analogioSlider;
     private JSlider uncoreSlider;
@@ -19,6 +27,10 @@ public class Interface {
     private JLabel valueCache;
     private JLabel valueUncore;
     private JLabel valueAnalogio;
+    private JButton faqbutton;
+    private JButton resetbutton;
+    private JButton buttonLoad;
+    private JButton buttonSave;
 
     private int coreSliderValue;
     private int gpuSliderValue;
@@ -26,18 +38,25 @@ public class Interface {
     private int uncoreSliderValue;
     private int analogioSliderValue;
 
+    private Config configs = new Config();
+    private Profile profile = new Profile(frame);
     private UndervoltValue value = new UndervoltValue();
+    private Stresstest stresstest = new Stresstest();
+
 
 
     //TODO
     // 1 - Faq errori
-    // 2 - Stress test dopo applicazioni valori
+    // 2 - Stress test dopo applicazioni valori  --> DONE
     // 3 - Salvare le configurazioni su file
+    // 3.1 - File di configurazione --> DONE
     // 4 - Permettere l'avvio all'avvio del sistema e ripristinare le configurazione
     // 5 - Controllare che il punto 4 non sia avvenuto per un crash del sistema ( Potrebbe causare loop XD )
     // 6 - Avvertire Gilli
 
     public Interface(){
+
+        //LISTENER
 
         //Cpu voltage
         coreSlider.addChangeListener(new ChangeListener() {
@@ -104,34 +123,120 @@ public class Interface {
         applybutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //First i disable the ui
-                applybutton.setText("Applying change, please wait...");
-                setEnableUi(false);
+                set();
+            }
+        });
 
-                //Set value
-                value.setValue(coreSliderValue, gpuSliderValue, cacheSliderValue, uncoreSliderValue, analogioSliderValue);
+        resetbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+               reset();
+            }
+        });
 
-                //Refresh ui value
-                setUiValue();
+        faqbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Faq faq = new Faq();
+                faq.createUi();
+            }
+        });
 
-                //Re enable all ui
-                applybutton.setText("Apply");
-                setEnableUi(true);
+        buttonLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                read();
+            }
+        });
 
+        buttonSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                save();
             }
         });
 
         //Set actual value when application start
         setUiValue();
+
+        //END LISTENER
+    }
+
+    private void read() {
+        setSliderValue(profile.read());
+    }
+
+    private void save() {
+        profile.save(coreSliderValue, gpuSliderValue, cacheSliderValue, uncoreSliderValue, analogioSliderValue);
+    }
+
+    private void set() {
+        //First i disable the ui
+        applybutton.setText("Applying change, please wait...");
+        setEnableUi(false);
+
+        //Set value
+        boolean correct = value.setValue(coreSliderValue, gpuSliderValue, cacheSliderValue, uncoreSliderValue, analogioSliderValue);
+
+        if(correct){
+            //Refresh ui value
+            setUiValue();
+
+            try {
+                //Stress to see if it stable
+                stresstest.setStressMaxCore(10000);
+                stresstest.startStress();
+
+                //Wait for the stress test ending
+                Thread.sleep(11000);
+
+            } catch (InterruptedException e) {
+                System.out.println("Stress test skipped");
+            }
+
+            //Re enable all ui
+            applybutton.setText("Applied!");
+            setEnableUi(true);
+
+        }else{
+            generateError(2);
+        }
+    }
+
+    private void reset() {
+        //First i disable the ui
+        applybutton.setText("Applying change, please wait...");
+        setEnableUi(false);
+
+        //Set value
+        boolean correct = value.setValue(0, 0, 0, 0, 0);
+
+        if(correct){
+            //Refresh ui value
+            setUiValue();
+
+            //Re enable all ui
+            applybutton.setText("Restored!");
+            setEnableUi(true);
+        }else{
+            generateError(2);
+        }
     }
 
     //ONLY FOR FIRST INSTANCE
     public void createUi(){
+
         UIManager.getDefaults().put("Button.disabledText",Color.decode("#EAB23B"));
-        JFrame frame = new JFrame("Undervolt");
+        frame = new JFrame("Undervolt");
         frame.setContentPane(new Interface().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            frame.setIconImage(ImageIO.read(new File(configs.getImage_path()+"icoover.png")));
+        } catch (IOException e) {
+            System.out.println("No icon found");
+        }
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     //END INSTANZE
@@ -144,11 +249,17 @@ public class Interface {
         uncoreSlider.setEnabled(enable);
         analogioSlider.setEnabled(enable);
         applybutton.setEnabled(enable);
+        resetbutton.setEnabled(enable);
     }
 
-    private void setUiValue(){
+    private void setUiValue() {
         //Get the data from undervolt.py
         HashMap<String, Double> valueHashmap = value.getValue();
+
+        setSliderValue(valueHashmap);
+    }
+
+    private void setSliderValue( HashMap<String, Double> valueHashmap){
 
         if(valueHashmap.containsKey("errors")){
             //If there is something wrong with the readings
@@ -194,6 +305,9 @@ public class Interface {
 
         // Code: 1.0 --> Class: Undervolt.java --> Method: runScript
         // Solution: Application start with no sudo permission or something is wrong with undervolt.py file
+
+        // Code: 2.0 --> Class: Undervolt.java --> Method: setValue
+        // Solution: Error during setting voltage, pc not compatible or something is wrong with undervolt.py file
 
         setEnableUi(false);
         applybutton.setText("Error code: " + errorCode);

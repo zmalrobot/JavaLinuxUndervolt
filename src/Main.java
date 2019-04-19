@@ -11,8 +11,8 @@ public class Main {
         Thread runUi = new Thread(new Runnable() {
             @Override
             public void run() {
-                Interface ui = new Interface();
-                ui.createUi();
+               Interface ui = new Interface();
+               ui.createUi();
             }
         });
 

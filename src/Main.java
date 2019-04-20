@@ -3,9 +3,14 @@ public class Main {
     public static void main(String[] args) {
 
         //TODO
-        // 1 - Avviare con o senza ui a senconda di un paramentro
-        // 2 - Vedi gli altri file
-        // 3 - Quello che riesci in tryicon
+        // 1: When i save over another save it will double the file extension
+        // 2: Clean the code
+        // 3: Create a better installer
+        // 4: Create a better launcher
+
+
+        //Anti aliasing for the font
+        System.setProperty("awt.useSystemAAFontSettings","on");
 
         //Run the ui thread
         Thread runUi = new Thread(new Runnable() {

@@ -7,6 +7,7 @@
     </constraints>
     <properties>
       <background color="-1314321"/>
+      <font name="Ubuntu"/>
       <foreground color="-1314321"/>
     </properties>
     <border type="none"/>
@@ -18,6 +19,7 @@
         </constraints>
         <properties>
           <background color="-1314321"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
         </properties>
         <border type="none"/>
@@ -28,6 +30,7 @@
             </constraints>
             <properties>
               <background color="-1314321"/>
+              <font name="Ubuntu"/>
               <foreground color="-11750482"/>
               <inverted value="false"/>
               <maximum value="175"/>
@@ -42,6 +45,7 @@
             </constraints>
             <properties>
               <background color="-1314321"/>
+              <font name="Ubuntu"/>
               <foreground color="-11750482"/>
               <maximum value="175"/>
               <minimum value="-175"/>
@@ -54,6 +58,7 @@
             </constraints>
             <properties>
               <background color="-1314321"/>
+              <font name="Ubuntu"/>
               <foreground color="-11750482"/>
               <maximum value="175"/>
               <minimum value="-175"/>
@@ -66,6 +71,7 @@
             </constraints>
             <properties>
               <background color="-1314321"/>
+              <font name="Ubuntu"/>
               <foreground color="-11750482"/>
               <maximum value="175"/>
               <minimum value="-175"/>
@@ -78,6 +84,7 @@
             </constraints>
             <properties>
               <background color="-1314321"/>
+              <font name="Ubuntu"/>
               <foreground color="-11750482"/>
               <maximum value="175"/>
               <minimum value="-175"/>
@@ -89,7 +96,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="Analogio"/>
             </properties>
@@ -99,7 +106,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="Uncore"/>
             </properties>
@@ -109,7 +116,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="Core"/>
             </properties>
@@ -119,7 +126,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="Gpu"/>
             </properties>
@@ -129,7 +136,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="Cache"/>
             </properties>
@@ -139,7 +146,7 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="0"/>
             </properties>
@@ -149,7 +156,7 @@
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="0"/>
             </properties>
@@ -159,7 +166,7 @@
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="0"/>
             </properties>
@@ -169,7 +176,7 @@
               <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="0"/>
             </properties>
@@ -179,7 +186,7 @@
               <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Ubuntu Light" size="14"/>
+              <font name="Ubuntu"/>
               <foreground color="-14207403"/>
               <text value="0"/>
             </properties>
@@ -192,6 +199,7 @@
         </constraints>
         <properties>
           <background color="-14207403"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
           <text value="Apply"/>
         </properties>
@@ -216,6 +224,7 @@
         </constraints>
         <properties>
           <background color="-14207403"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
           <text value="Faq and  error code"/>
         </properties>
@@ -226,6 +235,7 @@
         </constraints>
         <properties>
           <background color="-6814675"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
           <text value="Defalut settings"/>
         </properties>
@@ -236,6 +246,7 @@
         </constraints>
         <properties>
           <background color="-14207403"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
           <text value="Load"/>
         </properties>
@@ -246,6 +257,7 @@
         </constraints>
         <properties>
           <background color="-14207403"/>
+          <font name="Ubuntu"/>
           <foreground color="-1314321"/>
           <text value="Save"/>
         </properties>

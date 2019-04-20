@@ -1,8 +1,16 @@
 import java.io.*;
 import java.util.HashMap;
 
-//TODO
-// 1 - Controllo se viene applicato correttamente o se da errore --> DONE
+/*****************************
+ *
+ *   This class is made to interface my ui with  undervolt.py
+ *
+ *   undervolt.py IS NOT MINE it's belong to georgewhewell, if you like it
+ *   tanks it to his github page:
+ *
+ *   https://github.com/georgewhewell/undervolt
+ *
+ * *****************************/
 
 public class UndervoltValue {
 
@@ -11,6 +19,7 @@ public class UndervoltValue {
 
     public UndervoltValue(){ }
 
+    // Read the actual config
     public HashMap<String, Double> getValue(){
 
         returnValue  = new HashMap<String, Double>();
@@ -20,6 +29,7 @@ public class UndervoltValue {
         return returnValue;
     }
 
+    //Set the slider config
     public boolean setValue(int core, int gpu, int cache, int uncore, int analogio){
 
         String undervolt = "--gpu "+gpu+" --core "+core+" --cache "+cache+" --uncore "+uncore+" --analogio "+analogio+"";
@@ -32,6 +42,7 @@ public class UndervoltValue {
 
     }
 
+    //This run the script and read the output
     private boolean runScript(String param, boolean read){
 
         //Path and script name
@@ -84,6 +95,8 @@ public class UndervoltValue {
         return false;
     }
 
+
+    //Create the hashmap that the ui use
     private void addToHasmap(String scrptString){
 
         //String preparation

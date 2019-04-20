@@ -45,15 +45,7 @@ public class Interface {
 
 
 
-    //TODO
-    // 1 - Faq errori
-    // 2 - Stress test dopo applicazioni valori  --> DONE
-    // 3 - Salvare le configurazioni su file
-    // 3.1 - File di configurazione --> DONE
-    // 4 - Permettere l'avvio all'avvio del sistema e ripristinare le configurazione
-    // 5 - Controllare che il punto 4 non sia avvenuto per un crash del sistema ( Potrebbe causare loop XD )
-    // 6 - Avvertire Gilli
-
+    // Set the listener and the actual params
     public Interface(){
 
         //LISTENER
@@ -162,14 +154,21 @@ public class Interface {
         //END LISTENER
     }
 
+    // Ask to read the profile
     private void read() {
-        setSliderValue(profile.read());
+        HashMap<String, Double> prof = profile.read();
+        if(!prof.containsKey("errors")){
+            setSliderValue(prof);
+        }
     }
 
+    // Save the profile
     private void save() {
         profile.save(coreSliderValue, gpuSliderValue, cacheSliderValue, uncoreSliderValue, analogioSliderValue);
     }
 
+
+    //Set actual slider value as undervolt
     private void set() {
         //First i disable the ui
         applybutton.setText("Applying change, please wait...");
@@ -203,6 +202,7 @@ public class Interface {
         }
     }
 
+    // Set 0 to all value
     private void reset() {
         //First i disable the ui
         applybutton.setText("Applying change, please wait...");
@@ -241,7 +241,7 @@ public class Interface {
     }
     //END INSTANZE
 
-
+    //Enable and disable de ui minus faq button
     private void setEnableUi(boolean enable){
         coreSlider.setEnabled(enable);
         gpuSlider.setEnabled(enable);
@@ -252,6 +252,8 @@ public class Interface {
         resetbutton.setEnabled(enable);
     }
 
+
+    //Called after set value
     private void setUiValue() {
         //Get the data from undervolt.py
         HashMap<String, Double> valueHashmap = value.getValue();
@@ -259,6 +261,7 @@ public class Interface {
         setSliderValue(valueHashmap);
     }
 
+    //Set the value from the hashmap to the ui
     private void setSliderValue( HashMap<String, Double> valueHashmap){
 
         if(valueHashmap.containsKey("errors")){
@@ -288,6 +291,7 @@ public class Interface {
 
     }
 
+    //Create the label from the value
     private void setLabel(int value, JLabel label){
 
         String labeltext = Integer.toString(value) + " mV";
@@ -299,6 +303,7 @@ public class Interface {
         label.setText(labeltext);
     }
 
+    //Show error
     public void generateError(int errorCode){
 
         //Error reference:

@@ -1,4 +1,6 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,14 +12,27 @@ public class Profile {
 
     private HashMap<String, Double> returnValue;
 
+    //Constructor
     public Profile(JFrame frame){
         this.frame = frame;
     }
 
+    //Save data to file
     public void save(int coreSliderValue, int gpuSliderValue, int cacheSliderValue, int uncoreSliderValue, int analogioSliderValue){
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(new File(configs.getSave_path())){
+            @Override
+            protected JDialog createDialog( Component parent ) throws HeadlessException {
+                JDialog dialog = super.createDialog( parent );
+                try {
+                    dialog.setIconImage(ImageIO.read(new File(configs.getImage_path()+"icosave.png")));
+                } catch (IOException e) {
+                    System.out.println("No icon found");
+                }
+                return dialog;
+            }
+        };
+
         fileChooser.setDialogTitle("Save profile");
-        fileChooser.setCurrentDirectory(new File(configs.getSave_path()));
 
         int userSelection = fileChooser.showSaveDialog(frame);
 
@@ -44,27 +59,42 @@ public class Profile {
         }
     }
 
+
+    //Read data from file
     public HashMap<String, Double> read(){
 
         returnValue = new  HashMap<String, Double>();
 
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Load profile");
-        fileChooser.setCurrentDirectory(new File(configs.getSave_path()));
+        JFileChooser fileChooser = new JFileChooser(new File(configs.getSave_path())){
+            @Override
+            protected JDialog createDialog( Component parent ) throws HeadlessException {
+                JDialog dialog = super.createDialog( parent );
+                try {
+                    dialog.setIconImage(ImageIO.read(new File(configs.getImage_path()+"icoload.png")));
+                } catch (IOException e) {
+                    System.out.println("No icon found");
+                }
+                return dialog;
+            }
+        };
 
-        int userSelection = fileChooser.showSaveDialog(frame);
+        fileChooser.setApproveButtonText("Load");
+
+        int userSelection = fileChooser.showOpenDialog(frame);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
             readfile(file);
+            return returnValue;
+        } else{
+            returnValue.put("errors", 0.0);
+            return returnValue;
         }
-
-        System.out.println(returnValue);
-        return returnValue;
 
     }
 
+    //Read the selected file
     private void readfile(File file) {
         BufferedReader reader;
         try {
@@ -87,6 +117,7 @@ public class Profile {
         }
     }
 
+    //Create the hashmap (i's a duplicate forn now form undervolt class, i'll remove soon or later)
     private void addToHasmap(String scrptString){
 
         //String preparation

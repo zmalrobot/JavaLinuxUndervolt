@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class Config {
 
+    //Read the config file
+
     private String undervolt_path;
     private String save_path;
     private String image_path;

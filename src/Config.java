@@ -59,22 +59,22 @@ public class Config {
     }
 
     public String getUndervolt_path() {
-        System.out.println("Undervolt path: " + undervolt_path);
+        //System.out.println("Undervolt path: " + undervolt_path);
         return undervolt_path;
     }
 
     public String getSave_path() {
-        System.out.println("Save path: " + save_path);
+        //System.out.println("Save path: " + save_path);
         return save_path;
     }
 
     public String getImage_path() {
-        System.out.println("Image path: " + image_path);
+       // System.out.println("Image path: " + image_path);
         return image_path;
     }
 
     public String getScript_path() {
-        System.out.println("String path: " + script_path);
+        //System.out.println("String path: " + script_path);
         return script_path;
     }
 }

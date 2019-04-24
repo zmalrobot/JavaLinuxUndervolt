@@ -1,9 +1,12 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class CpuUi {
 
@@ -13,32 +16,36 @@ public class CpuUi {
     private JFrame frame;
     private JPanel jframe;
     private JTextPane txtCpuInfo;
-    private JButton stressCPU;
     private JTextPane txtCpuStatus;
+    private JProgressBar cpuLoadBar;
+    private JButton btnStress;
 
     public CpuUi(){
 
         //Processor info
         ArrayList<String> processor = processorInfo.getProcessorInfo();
-        /*String helper = "<html><p><strong>Processo info:</strong></p>";
-
-        for (String info : processor) {
-            String[] tmp = info.split(":");
-
-            helper = helper + "<p><strong>"+tmp[0]+": </strong>"+tmp[1]+"</p>";
-        }
-        helper = helper + "</html>";
-
-        txtCpuInfo.setText(helper);*/
 
         txtCpuInfo.setText(processorInfoTable(processor));
 
-        updateStatusLoop();
+        btnStress.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Stresstest stress = new Stresstest();
+                stress.startStress();
+            }
+        });
+
+        backgrloundLoop();
+    }
+
+    private void backgrloundLoop() {
+        UpdateCpuStatus loop = new UpdateCpuStatus(txtCpuStatus, cpuLoadBar);
+        loop.execute();
     }
 
     public String processorInfoTable(ArrayList<String> processor){
         String ret ="<html>";
-        ret = ret + "<p>Cpu info: </p>";
+        ret = ret + "<p><strong>Cpu info:</strong></p>";
         ret = ret +
                 "<table>"+
                 "<tr>"+
@@ -82,33 +89,9 @@ public class CpuUi {
                     "<td>"+ processor.get(23) +"</td>"+
                 "</tr>"+
                 "</table>";
-        ret = ret + "<p>"+processor.get(24)+"</p>";
+        ret = ret + "<p>"+processor.get(25)+"</p>";
         ret = ret + "</html>";
         return ret;
-    }
-
-    public void updateStatusLoop(){
-        processorInfo.updateValue();
-
-        String cpuStatus = "<html>" +
-                         "<p><strong>Cpu frequency:</strong></p>" +
-                         "<table>"+
-                             "<tr>"+
-                                 "<td>"+ processorInfo.getActFreq() +"</td>"+
-                                 "<td>"+ processorInfo.getMinFreq() +"</td>"+
-                                 "<td>"+ processorInfo.getMaxFreq() +"</td>"+
-                             "</tr>"+
-                         "</table>"+
-                        "<p><strong>Cpu temperature:</strong></p>" +
-                        "<table>"+
-                            "<tr>"+
-                                "<td>"+ processorInfo.getActTemp() +"</td>"+
-                                "<td>"+ processorInfo.getMinTemp() +"</td>"+
-                                "<td>"+ processorInfo.getMaxTemp() +"</td>"+
-                            "</tr>"+
-                        "</table>"+
-                         "</html>";
-        txtCpuStatus.setText(cpuStatus);
     }
 
     //ONLY FOR FIRST INSTANCE
@@ -119,7 +102,7 @@ public class CpuUi {
         frame.setContentPane(new CpuUi().jframe);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
-            frame.setIconImage(ImageIO.read(new File(configs.getImage_path()+"icoover.png")));
+            frame.setIconImage(ImageIO.read(new File(configs.getImage_path()+"icocpu.png")));
         } catch (IOException e) {
             System.out.println("No icon found");
         }

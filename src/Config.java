@@ -9,6 +9,7 @@ public class Config {
     private String undervolt_path;
     private String save_path;
     private String image_path;
+    private String script_path;
 
     public Config(){
         readConfigFile();
@@ -35,6 +36,11 @@ public class Config {
                 if(line.contains("image_path")){
                     String value = getValue(line);
                     image_path = value;
+                }
+
+                if(line.contains("script_path")){
+                    String value = getValue(line);
+                    script_path = value;
                 }
 
                 line = reader.readLine();
@@ -65,5 +71,10 @@ public class Config {
     public String getImage_path() {
         System.out.println("Image path: " + image_path);
         return image_path;
+    }
+
+    public String getScript_path() {
+        System.out.println("String path: " + script_path);
+        return script_path;
     }
 }

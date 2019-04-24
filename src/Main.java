@@ -8,6 +8,7 @@ public class Main {
         // 3: Create a better installer
         // 4: Create a better launcher
 
+        CpuInfo cpuInfo = new CpuInfo();
 
         //Anti aliasing for the font
         System.setProperty("awt.useSystemAAFontSettings","on");
@@ -22,5 +23,15 @@ public class Main {
         });
 
         runUi.start();
+
+        Thread runCpuUi = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CpuUi cpuUi = new CpuUi();
+                cpuUi.createUi();
+            }
+        });
+
+        runCpuUi.start();
     }
 }

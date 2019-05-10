@@ -75,6 +75,12 @@ Os: Ubuntu 19.04 + Ubuntu 18.04
 
 ```
 
+## Some screenshot
+
+![Screen1](https://i.imgur.com/hKZ5hEh.png)
+![Screen2](https://i.imgur.com/T0sKItC.png)
+![Screen3](https://i.imgur.com/8CApzQg.png)
+
 ## Other info
 
 install.sh

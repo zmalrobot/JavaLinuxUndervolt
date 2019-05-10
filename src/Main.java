@@ -24,7 +24,7 @@ public class Main {
 
         runUi.start();
 
-        Thread runCpuUi = new Thread(new Runnable() {
+/*        Thread runCpuUi = new Thread(new Runnable() {
             @Override
             public void run() {
                 CpuUi cpuUi = new CpuUi();
@@ -32,6 +32,6 @@ public class Main {
             }
         });
 
-        runCpuUi.start();
+        runCpuUi.start();*/
     }
 }
